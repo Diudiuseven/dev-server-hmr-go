@@ -157,21 +157,6 @@ func TestEndToEndIncrementalHMR(t *testing.T) {
 	}
 }
 
-func getJSON(t *testing.T, url string) map[string]any {
-	t.Helper()
-	resp, err := http.Get(url)
-	if err != nil {
-		t.Fatal(err)
-	}
-	defer resp.Body.Close()
-	body, _ := io.ReadAll(resp.Body)
-	m := map[string]any{}
-	if err := json.Unmarshal(body, &m); err != nil {
-		t.Fatal(err)
-	}
-	return m
-}
-
 func moduleVersion(t *testing.T, base, mod string) string {
 	t.Helper()
 	resp, err := http.Get(base + "/modules/" + mod)

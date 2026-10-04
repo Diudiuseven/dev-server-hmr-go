@@ -111,13 +111,17 @@ func (s *Store) All() []Snapshot {
 
 func (ms *moduleState) snapshot(name string) Snapshot {
 	snap := Snapshot{
-		Module:    name,
-		Status:    ms.status,
-		Building:  ms.building,
-		Current:   ms.current,
-		Error:     ms.errMsg,
-		FailedAt:  ms.failedAt.UnixNano(),
-		ChangedAt: ms.changedAt.UnixNano(),
+		Module:   name,
+		Status:   ms.status,
+		Building: ms.building,
+		Current:  ms.current,
+		Error:    ms.errMsg,
+	}
+	if !ms.failedAt.IsZero() {
+		snap.FailedAt = ms.failedAt.UnixNano()
+	}
+	if !ms.changedAt.IsZero() {
+		snap.ChangedAt = ms.changedAt.UnixNano()
 	}
 	if ms.current != nil {
 		snap.VersionID = ms.current.VersionID

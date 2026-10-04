@@ -1,0 +1,37 @@
+{
+  "workspace": ".",
+  "artifactDir": ".hmr/artifacts",
+  "modules": [
+    {
+      "name": "app",
+      "root": "packages/app",
+      "deps": ["ui", "core"],
+      "command": "sh",
+      "args": ["-c", "npm run build"],
+      "artifact": "dist/app.js"
+    },
+    {
+      "name": "ui",
+      "root": "packages/ui",
+      "deps": ["core"]
+    },
+    {
+      "name": "core",
+      "root": "packages/core"
+    }
+  ],
+  "watch": {
+    "roots": ["packages"],
+    "include": ["*.js", "*.ts", "*.css", "*.html"],
+    "exclude": ["node_modules", "*.test.js", "dist"],
+    "pollInterval": "100ms",
+    "debounce": "200ms"
+  },
+  "build": {
+    "concurrency": 4,
+    "timeout": "30s"
+  },
+  "server": {
+    "addr": ":8080"
+  }
+}
