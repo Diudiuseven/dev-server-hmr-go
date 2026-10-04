@@ -1,0 +1,29 @@
+{
+  "workspace": "./example-workspace",
+  "address": ":8080",
+  "debounce_window": "150ms",
+  "build_timeout": "30s",
+  "max_parallel_builds": 4,
+  "watch_poll_interval": "200ms",
+  "watch_extra": ["config"],
+  "modules": [
+    {
+      "name": "shared",
+      "dir": "packages/shared",
+      "include": ["**/*.js"]
+    },
+    {
+      "name": "ui",
+      "dir": "packages/ui",
+      "deps": ["shared"],
+      "include": ["**/*.js", "**/*.css"]
+    },
+    {
+      "name": "app",
+      "dir": "packages/app",
+      "deps": ["ui", "shared"],
+      "command": ["sh", "-c", "npm run build"],
+      "artifact_dir": "dist"
+    }
+  ]
+}
